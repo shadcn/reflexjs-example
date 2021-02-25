@@ -1,63 +1,25 @@
-interface HeroBlockProps extends React.HTMLAttributes<HTMLElement> {
-  subheading?: React.ReactNode
-  heading?: React.ReactNode
-  text?: React.ReactNode
-  image?: React.ImgHTMLAttributes<HTMLImageElement>
-  imagePosition?: "left" | "right"
-  buttons?: React.ReactNode
-  children?: React.ReactNode
-}
+import Image from "next/image"
 
 export default function Block({
-  subheading,
   heading,
-  text,
-  image,
-  imagePosition = "right",
-  buttons,
-  children,
+  text = null,
+  image = null,
   ...props
-}: HeroBlockProps) {
+}) {
   return (
     <section py="6|12|20" {...props}>
-      <div variant="container">
-        <div
-          display="grid"
-          gridAutoFlow="dense"
-          col="1|1|2"
-          gap="8|8|12"
-          alignItems="center"
-        >
-          {image && (
-            <img
-              colStart={`null|null|${imagePosition === "left" ? 1 : 2}`}
-              w="full"
-              rounded="lg"
-              overflow="hidden"
-              {...image}
-            />
-          )}
-          <div
-            d="flex"
-            flexDirection="column"
-            alignItems="center|flex-start"
-            textAlign="center|left"
-          >
-            {subheading && <p variant="subheading">{subheading}</p>}
-            {heading && (
-              <h1 variant="heading.h1" lineHeight="1">
-                {heading}
-              </h1>
-            )}
-            {text && (
-              <p variant="text.lead" mt="4">
-                {text}
-              </p>
-            )}
-            {buttons}
-            {children}
+      <div variant="container" textAlign="center" py="16">
+        {heading && <h1 variant="heading.h1">{heading}</h1>}
+        {text && (
+          <p variant="text.lead" mt="2">
+            {text}
+          </p>
+        )}
+        {image && (
+          <div mt="6" rounded="lg">
+            <Image src={image} width="500" height="350" />
           </div>
-        </div>
+        )}
       </div>
     </section>
   )
